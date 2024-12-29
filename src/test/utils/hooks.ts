@@ -1,5 +1,5 @@
 // tests/support/hooks.js
-import { Before, After, BeforeAll, setWorldConstructor, Status,  } from '@cucumber/cucumber'
+import { Before, After, setWorldConstructor, Status, setDefaultTimeout,  } from '@cucumber/cucumber'
 import { Browser, BrowserContext, chromium, Page} from "@playwright/test";
 import { PageManager } from "../../pages/PageManager";
 import  path from "path";
@@ -32,6 +32,7 @@ export class CustomWorld {
 }
 
 setWorldConstructor(CustomWorld);
+setDefaultTimeout(30000);
 
 Before(async function (this: CustomWorld) {
   this.browser = await chromium.launch({headless: true, 
