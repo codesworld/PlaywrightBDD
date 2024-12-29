@@ -1,8 +1,9 @@
 import { BasePage } from "./BasePage";
-import { Locator } from '@playwright/test';
+import { Locator,Page } from '@playwright/test';
 
 export class LoginPage extends BasePage {
-    
+
+
     public readonly email
     =  this.page.getByPlaceholder("Email address")
    

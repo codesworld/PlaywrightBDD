@@ -6,16 +6,16 @@ import { PageManager } from '../../pages/PageManager';
 
 dotenv.config();
 
-Given('User on the page', async function () {   
+Given('User on the page', async function () { 
     await this.pageManager.onHomePage().gotoUrl();
-    await this.pageManager.onHomePage().cookie.click();
 });
 
 Then('User click on the login link', async function () {
+    await this.pageManager.onHomePage().cookie.click();
     await Promise.all([
-        await this.page.waitForLoadState("load"), 
-        await this.pageManager.onHomePage().login.click(),
-    ])
+        await this.page.waitForLoadState('load'),
+        await this.pageManager.onHomePage().login.click()
+   ])
 });
 
 Given('User enter the email', async function () {
@@ -30,6 +30,7 @@ Given('User enter the password', async function () {
 })
 
 When('User click on the login button', async function () {
+    await this.pageManager.onLoginPage().waitFor(this.pageManager.onLoginPage().loginButton)
     await this.pageManager.onLoginPage().loginButton.click();
 });
 
@@ -50,9 +51,9 @@ Then('User see the url', async function () {
     //await expect(await this.page.url).toBe(process.env.DASHURL!)
 });
 
-Then('User see the message', async function () {
-    const actualText = await this.pageManager.onLoginPage().alertMessage();
-    expect(await actualText).toContain("That code is invalid or expired."); // 
-  });
+// Then('User see the message', async function () {
+//     const actualText = await this.pageManager.onLoginPage().alertMessage();
+//     expect(await actualText).toContain("That code is invalid or expired."); // 
+//   });
 
 

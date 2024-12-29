@@ -34,8 +34,13 @@ export class CustomWorld {
 setWorldConstructor(CustomWorld);
 
 Before(async function (this: CustomWorld) {
-  this.browser = await chromium.launch({ headless: false });
-  this.context = await this.browser.newContext();
+  this.browser = await chromium.launch({headless: true, 
+    slowMo: 100, 
+    args: ["--start-maximized"]  });
+  this.context = await this.browser.newContext({
+    ignoreHTTPSErrors: true,
+    acceptDownloads: true, 
+  });
   this.page = await this.context.newPage();
   this.pageManager = new PageManager(this.page);
 });
@@ -43,7 +48,7 @@ Before(async function (this: CustomWorld) {
 After(async function (this: CustomWorld,scenario : any) {
 
   if (scenario.result?.status === Status.FAILED) {
-    await takescreenshot.bind(this)(this.page,scenario)   
+    await takescreenshot(this.page,scenario)   
   }
  await this.close();
 });
@@ -56,9 +61,9 @@ async function takescreenshot(this: any, page : Page ,scenario:any){
     await page.waitForTimeout(1000);
     const screenshotBuffer = await page.screenshot({fullPage : true });  
     await fs.writeFileSync(screenshotPath, screenshotBuffer);
-    if (this.attach) {
-      this.attach(screenshotBuffer, 'image/png');
-    }  
+    // if (this.attach) {
+    //   this.attach(screenshotBuffer, 'image/png');
+    // }  
 }
 
 
