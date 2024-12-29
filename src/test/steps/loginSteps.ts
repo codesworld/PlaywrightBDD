@@ -8,6 +8,7 @@ dotenv.config();
 
 Given('User on the page', async function () { 
     await this.pageManager.onHomePage().gotoUrl();
+    await new Promise(resolve => setTimeout(resolve, 3000));
     await this.pageManager.onHomePage().acceptCookie();
 });
 
