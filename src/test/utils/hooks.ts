@@ -57,7 +57,7 @@ async function takescreenshot(this: any, page : Page ,scenario:any){
   
     const dateTimeString = new Date().toISOString().replace(/[:.]/g, '-');
     const scenarioName = scenario.pickle.name.replace(/ /g, '_');
-    const screenshotPath = path.join('reports/screenshots', `${scenarioName}_${dateTimeString}.png`);
+    const screenshotPath = path.join('reports', `${scenarioName}_${dateTimeString}.png`);
     await page.waitForTimeout(1000);
     const screenshotBuffer = await page.screenshot({fullPage : true });  
     await fs.writeFileSync(screenshotPath, screenshotBuffer);
