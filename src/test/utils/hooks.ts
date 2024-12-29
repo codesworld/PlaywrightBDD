@@ -35,7 +35,7 @@ setWorldConstructor(CustomWorld);
 setDefaultTimeout(30000);
 
 Before(async function (this: CustomWorld) {
-  this.browser = await chromium.launch({headless: false, 
+  this.browser = await chromium.launch({headless: true, 
     slowMo: 100, 
     args: ["--start-maximized"]  });
   this.context = await this.browser.newContext({
