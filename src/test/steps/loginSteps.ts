@@ -9,10 +9,11 @@ dotenv.config();
 Given('User on the page', async function () { 
     await this.pageManager.onHomePage().gotoUrl();
     await this.page.waitForTimeout(2000);
+    await this.pageManager.onHomePage().cookie.click();
 });
 
 Then('User click on the login link', async function () {
-    await this.pageManager.onHomePage().cookie.click();
+  
     await Promise.all([
         await this.page.waitForLoadState('load'),
         await this.pageManager.onHomePage().login.click()
